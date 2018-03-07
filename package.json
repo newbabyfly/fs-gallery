@@ -1,0 +1,26 @@
+{
+  "name": "fs-gallery",
+  "version": "1.0.0",
+  "description": "A simple Image gallery script",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newbabyfly/fs-gallery.git"
+  },
+  "author": "Leigh Stein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/newbabyfly/fs-gallery/issues"
+  },
+  "homepage": "https://github.com/newbabyfly/fs-gallery#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.9",
+    "nodemon": "^1.15.1",
+    "pug": "^2.0.0-rc.4"
+  }
+}
