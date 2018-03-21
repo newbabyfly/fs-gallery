@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  #main
+    include addImageForm.pug
+
+    h2 Recently Added Images
+    #recentImages
+
+    each image in images
+      ul.list-container
+        li #{image.file}
+        li Title: #{image.imageData.title}
+        li Description: #{image.imageData.description}
+        li Date: #{image.created_at}

@@ -1,25 +1,29 @@
 // Load mongoose package
 const mongoose = require('mongoose');
 
-const FileSchema = new mongoose.Schema({
-  image: String,
+
+const ImageSchema = new mongoose.Schema({
+  file: String,
+  created_at: { type: Date, default: Date.now },
   imageData: {
     title: String,
-    description: String,
-    created_at: { type: Date, default: Date.now },
+    description: String
   }
 });
 
-const File = mongoose.model('File', FileSchema);
+const Image = mongoose.model('Image', ImageSchema);
 
-File.count({}, function(err, count) {
-  if (err) {
-    throw err;
+/*const sortRecent = function(a, b){
+  if(a.created_at === b.created_at) {
+    return b.updated - a.updated;
   }
+  return b.created_at - a.created_at;
+}
 
-  if (count > 0) return ;
+ImageSchema.pre("save", function(next) {
+  this.images.sort(sortRecent);
+  next();
+}); */
 
 
-});
-
-module.exports = File;
+module.exports = Image;

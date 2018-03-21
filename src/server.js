@@ -1,10 +1,10 @@
-'use strict';
-
 const path = require('path');
-const express = require('express');
-const bodyParser = require('body-parser');
 const config = require('./config');
 const router = require('./routes.js');
+const bodyParser = require('body-parser');
+const express = require('express');
+
+
 
 // Load mongoose package
 const mongoose = require('mongoose');
@@ -13,15 +13,22 @@ const mongoose = require('mongoose');
 //mongoose.connection.openUri(`mongodb://${config.db.username}:${config.db.password}@${config.db.host}/${config.db.dbName}`);
 mongoose.connect("mongodb://localhost:27017/fsjsgallery");
 
+const db = mongoose.connection;
+
 // Import all models
 require('./models/file.model.js');
 
+
 const app = express();
 const publicPath = path.resolve(__dirname, '../public');
+const galleryPath = path.resolve(__dirname, '../public/gallery');
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", router);
-app.use(bodyParser.json());
 app.use(express.static(publicPath));
+app.set('view engine', 'pug');
+app.set('views', __dirname + '/../views');
+app.use('/api', router);
 
 
 //Catch 404
@@ -40,6 +47,13 @@ app.use(function(err, req, res, next){
       }
   });
 
+});
+db.on("error", function(err){
+  console.error("connection error: ", err);
+});
+
+db.once("open", function(){
+  console.log("db connection succesful");
 });
 
 const port = process.env.PORT || 3000;
