@@ -1,0 +1,119 @@
+const router = require('express').Router();
+const mongoose = require('mongoose');
+
+//const multer  = require('multer')
+//const upload = multer({ dest: '../public/gallery/' })
+
+
+
+// Add an Image
+router.post('/addImage', /*upload.array('image'),*/ (req, res, next) => {
+  const imageModel = mongoose.model('Image');
+  const image = {
+    file: req.body.imgFile,
+    imageData: {
+      title: req.body.imgTitle,
+      description: req.body.imgDescription,
+    }
+  };
+
+  imageModel.create(image, function(err, newImage) {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+
+
+    console.log('saved to database')
+    res.redirect('/')
+  });
+
+});
+
+//Edit an Image
+router.put('/editImage', function(req, res) {
+  console.log("edit me?");
+
+});
+
+
+// GET /
+router.get('/', function(req, res) {
+  const imageGallery = mongoose.model('Image');
+
+    imageGallery.find({}).sort({created_at: 'desc'}).limit(5).exec(function(err, images) {
+        if (err) {
+          console.log("Error: " + err);
+        } else {
+
+           res.render('index', { images: images });
+        }
+      });
+
+
+  });
+
+
+
+
+//Render Gallery Page
+
+router.get("/gallery", function(req, res, next){
+  const imageGallery = mongoose.model('Image');
+
+  imageGallery.find({deleted: {$ne: true}}, function(err, images) {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+
+    res.render('gallery', { images: images });
+});
+});
+
+router.get('/gallery/:imageId', function(req, res, next) {
+  const {fileId} = req.params;
+  // same as 'const fileId = req.params.fileId'
+  const imageId = req.params.imageId;
+  const id = new require('mongodb').ObjectID(imageId);
+  //req.params.id
+  const db = mongoose.connection;
+  db.collection('images').findOne({'_id':id})
+ .then(function(image) {
+        res.json(image);
+      });
+
+
+
+  /*const imageGallery = mongoose.model('Image');
+  const imageId = req.params.imageId;
+  imageGallery.findOne({imageId}, function(err, images) {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+
+    res.render('gallery', { images: images });
+  });
+
+  const IMAGES = [
+      {
+        file: req.body.imgFile,
+        imageData: {
+          title: req.body.imgTitle,
+          description: req.body.imgDescription,
+        }
+      }
+     ];
+
+  const image = IMAGES.find(entry => entry.id === imageId);
+  if (!image) {
+    return res.status(404).end(`Could not find file '${imageId}'`);
+  }
+
+  res.json(image);*/
+});
+
+
+
+module.exports = router;

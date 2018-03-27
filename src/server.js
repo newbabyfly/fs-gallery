@@ -1,8 +1,9 @@
 const path = require('path');
 const config = require('./config');
-const router = require('./routes.js');
 const bodyParser = require('body-parser');
 const express = require('express');
+const router = require('./routes.js');
+
 
 
 
@@ -19,15 +20,23 @@ const db = mongoose.connection;
 require('./models/file.model.js');
 
 
-const app = express();
+/*const app = express();
 const publicPath = path.resolve(__dirname, '../public');
 const galleryPath = path.resolve(__dirname, '../public/gallery');
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/", router);
+app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/", router); //move below path to use handlebars
 app.use(express.static(publicPath));
 app.set('view engine', 'pug');
-app.set('views', __dirname + '/../views');
+app.set('views', __dirname + '/../views'); */
+
+
+
+
+const app = express();
+const publicPath = path.resolve(__dirname, '../public');
+app.use(bodyParser.json());
+app.use(express.static(publicPath));
 app.use('/api', router);
 
 

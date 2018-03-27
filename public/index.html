@@ -14,16 +14,7 @@
 		<h1><a href="index.html">A Simple Gallery Script</a></h1>
 	</div>
 	<h2>Recently Added Images</h2>
-
-		<script id="list-template" type="text/x-handlebars-template">
-			<ul class="list-group">
-				{{#each image}}
-					<li class="list-group-item">
-						<strong>{{file}}</strong> - {{imageData.title}}
-					</li>
-				{{/each}}
-			</ul>
-		</script>
+	<div id="list-container"></div>
 
 	<div id="main">
 
@@ -32,16 +23,16 @@
 
 		    <form id="add-image-form" action="/addImage" method="POST" enctype="multipart/form-data">
 		      <div class="form-group">
-		        <label class="custom-file" for="imgFile">Upload Image</label>
-		        <input class="custom-file-input" id="file" type="file" placeholder="File" name="file"/><span class="custom-file-control"></span>
+		        <label class="custom-file" for="file">Upload Image</label>
+		        <input class="custom-file-input" id="file" type="file" placeholder="File" /><span class="custom-file-control"></span>
 				  </div>
 		      <div class="form-group">
-		        <label for="imgTitle">Title</label>
-		        <input class="form-control" id="title" type="text" placeholder="Title" name="imgTitle"/>
+		        <label for="title">Title</label>
+		        <input class="form-control" id="title" type="text" placeholder="Title" />
 		      </div>
 		      <div class="form-group">
-		        <label for="imgDescription">Description</label>
-		        <input class="form-control" id="description" type="text" placeholder="Description" name="imgDescription"/>
+		        <label for="description">Description</label>
+		        <input class="form-control" id="description" type="text" placeholder="Description" />
 		      </div>
 					<input id="imgId" type="hidden" value="" name="imgId"/>
 		      <button type="button" onclick="submitFileForm()" class="btn btn-success">Submit</button>
@@ -54,6 +45,20 @@
 	<div id="footer"></div>
 
 </div>
+
+<script id="list-template" type="text/x-handlebars-template">
+	<ul class="list-group">
+		{{#each images}}
+			<li class="list-group-item">
+				<img src="uploads/{{file}}" width="100px"/>
+				<p><strong>{{imageData.title}}</strong></p>
+				<p>{{imageData.description}}</p>
+				<button type="button" class="btn btn-xs btn-danger" onclick="handleUpdateClick('{{_id}}')">Edit</button>
+				<button type="button" class="btn btn-xs btn-danger" onclick="handleDeleteClick('{{_id}}')">Del</button>
+			</li>
+		{{/each}}
+	</ul>
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.min.js"></script>
 	<script src="/js/app.js"></script>

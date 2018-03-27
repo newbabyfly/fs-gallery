@@ -1,14 +1,15 @@
 #addImageForm
   #form-container
-    form#add-image-form(action='/addImage', method='POST')
+    form#add-image-form(action='/addImage', method='POST',  enctype=multipart/form-data)
       .form-group
-        label(for="file") File
-        input#file.form-control(type="text" placeholder="File" name="file")
+        label.custom-file(for="imgFile") Upload Image
+        input#file.custom-file-input(type='file' placeholder="File" name="imgFile")
+        span.custom-file-control
       .form-group
-        label(for="title") Title
-        input#title.form-control(type="text" placeholder="Title" name="title")
+        label(for="imgTitle") Title
+        input#title.form-control(type="text" placeholder="Title" name="imgTitle")
       .form-group
-        label(for="description") Description
-        input#description.form-control(type="text" placeholder="Description" name="description")
-      input#file-id(type='hidden', value='', name="created_at")
+        label(for="imgDescription") Description
+        input#description.form-control(type="text" placeholder="Description" name="imgDescription")
+      input#imgId(type='hidden', value='', name="created_at")
       button.btn.btn-success(type="submit") Submit

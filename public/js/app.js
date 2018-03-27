@@ -1,32 +1,60 @@
-function handleEditFileClick(id) {
-  const file = window.fileList.find(file => file._id === id);
-  if (file) {
-    setFormData(file);
-  }
+
+function getImages() {
+  return $.ajax('/api/image')
+    .then(res => {
+      console.log("Results from getImages()", res);
+      return res;
+    })
+    .fail(err => {
+      console.error("Error in getImages()", err);
+      throw err;
+    });
+}
+
+function refreshFileList() {
+  const template = $('#list-template').html();
+  const compiledTemplate = Handlebars.compile(template);
+
+  getImages()
+    .then(images => {
+
+      window.fileList = images;
+
+      const data = {images: images};
+      const html = compiledTemplate(data);
+      $('#list-container').html(html);
+})
 }
 
 
-/*function submitFileForm() {
-  const imageData = {
-    file: $('#image-file').val(),
-    title: $('#image-title').val(),
-    description: $('#image-description').val(),
-    _id: $('#image-id').val(),
+/*function handleAddFileClick() {
+  setFormData({});
+}*/
+
+
+function submitFileForm() {
+  console.log("You clicked 'submit'. Congratulations.");
+
+  const imgData = {
+    _id: $('#imgId').val(),
+    file: $('#file').val(),
+    title: $('#title').val(),
+    description: $('#description').val(),
   };
 
   let method, url;
-  if (imageData._id) {
+  if (imgData._id) {
     method = 'PUT';
-    url = '/api/file/' + imageData._id;
+    url = '/api/addImage/' + imgData._id;
   } else {
     method = 'POST';
-    url = '/api/file';
+    url = '/api/addImage';
   }
 
   $.ajax({
     type: method,
     url: url,
-    data: JSON.stringify(imageData),
+    data: JSON.stringify(imgData),
     dataType: 'json',
     contentType : 'application/json',
   })
@@ -38,5 +66,61 @@ function handleEditFileClick(id) {
       console.log("Failures at posting, we are", error);
     })
 
-  console.log("Your file data", imageData);
-} */
+  console.log("Your file data", imgData);
+}
+
+function cancelFileForm() {
+  toggleAddFileFormVisibility();
+}
+
+function handleUpdateClick(id) {
+  const file = window.fileList.find(file => file._id === id);
+  if (file) {
+    setFormData(file);
+    toggleAddFileFormVisibility();
+  }
+}
+
+
+function setFormData(data) {
+  data = data || {};
+
+  const image = {
+    file: data.file || '',
+    _id: data._id || '',
+    imageData: {
+      title: data.title || '',
+      description: data.description || ''
+  }
+  };
+
+  $('#title').val(data.title);
+  $('#description').val(data.description);
+  $('#id').val(_id);
+}
+
+function deleteFile(id) {
+  $.ajax({
+    type: 'DELETE',
+    url: '/api/file/' + id,
+    dataType: 'json',
+    contentType : 'application/json',
+  })
+    .done(function(response) {
+      console.log("File", id, "is DOOMED!!!!!!");
+      refreshFileList();
+    })
+    .fail(function(error) {
+      console.log("I'm not dead yet!", error);
+    })
+}
+
+function handleDeleteFileClick(id) {
+  if (confirm("Are you sure?")) {
+    deleteFile(id);
+  }
+}
+
+
+
+refreshFileList();

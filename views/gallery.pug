@@ -2,36 +2,17 @@ extends layout
 
 block content
   #main
-    h2 Gallery Page
-    #recentImages
-
-    ul.list-group
-
-    form(method='POST' action='/addImage')
-      form#addImageForm
-        div.form-group
-          label(for='image-file') Image:
-          input#image-file.form-control(type='text', placeholder='file' name='file')
-        div.form-group
-          label(for='image-title') Title:
-          input#image-title.form-control(type='text', placeholder='title' name='image-title')
-        div.form-group
-          label(for='image-description') Description:
-          input#image-description.form-control(type='text', placeholder='description' name='image-description')
-        button.btn.btn-primary(type='submit') Add Image
-
-
-
-
-  #addImageForm
-      form(method='POST' action='/addImage')
-        div.form-group
-          label(for='image') Image:
-          input#image.form-control(type='text', placeholder='image' name='image')
-        div.form-group
-          label(for='image-title') Title:
-          input#title.form-control(type='text', placeholder='title' name='image-title')
-        div.form-group
-          label(for='image-description') Description:
-          input#description.form-control(type='text', placeholder='description' name='image-description')
-          button.btn.btn-primary(type='submit') Add Image
+    h2 Gallery Page |
+      a(href="../") Most Recent
+    #imageGallery
+      each image in images
+        ul.list-container
+          li
+            img(src=`../uploads/${image.file}` alt=`${image.imageData.title}` width="200px")
+          li Title:
+            a(href=`../gallery/${image._id}`) #{image.imageData.title}
+          li Description: #{image.imageData.description}
+          li Date: #{image.created_at}
+          li
+            button.btn.btn-xs.btn-default(type='button' onclick=`handleEditFileClick('${image._id}')`) Edit
+            button.btn.btn-xs.btn-default(type='button' onclick=`handleDeleteFileClick(${image.file})`) Delete

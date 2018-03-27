@@ -6,18 +6,19 @@ Requirements:
 - MongoDB
 - mongoose
 - body-parser
-- pug
 - bootstrap
+- Handlebars
+- JQuery
 
 Immediate To Do list:
 - Get update and delete working
-- Get actual image/file uploader running
-- make images actually appear in templates
-- create main gallery page
+- fix file upload form to not include fakepath
+- add main gallery page
 - make it pretty
 
 If time before due date:
 - add user authentication and logins
+- Get actual image/file uploader running
 
 Long Term goals:
 - add albums/catergories feature for image sorting. Tags maybe?

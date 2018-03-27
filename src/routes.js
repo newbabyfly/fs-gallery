@@ -1,54 +1,115 @@
+// src/routes/index.js
 const router = require('express').Router();
 const mongoose = require('mongoose');
 
 
-router.post('/addImage', (req, res, next) => {
-  const imageModel = mongoose.model('Image');
-  const image = {
-    file: req.body.file,
-    imageData: {
-      title: req.body.title,
-      description: req.body.description,
-    }
-  };
+/**
+ * Get a list of all files in the DB
+ */
+router.get('/image',  function(req, res, next) {
+  const Image = mongoose.model('Image');
 
-  imageModel.create(image, function(err, newImage) {
+  Image.find({deleted: {$ne: true}}).sort({created_at: 'desc'}).limit(5).exec( function(err, images) {
     if (err) {
       console.log(err);
       return res.status(500).json(err);
     }
 
-
-    console.log('saved to database')
-    res.redirect('/')
+    res.json(images);
   });
+});
+
+/**
+ * Get a single file by passing its id as a URL param
+ */
+router.get('/image/:imageId', function(req, res, next) {
+  const {imageID} = req.params;
+  const image = IMAGES.find(entry => entry.id === imageId);
+
+  if (!image) {
+    return res.status(404).end(`Could not find file '${imageID}'`);
+  }
+
+  res.json(image);
+});
+
+/**
+ * Create a new file
+ */
+router.post('/addImage', function(req, res, next) {
+  const Image = mongoose.model('Image');
+  const imgData = {
+    file: req.body.file,
+    imageData: {
+      title: req.body.title,
+      description: req.body.description
+    }
+  };
+
+  Image.create(imgData, function(err, newImage) {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    res.json(newImage);
+  });
+});
+
+/**
+ * Update an existing file
+ */
+router.put('/file/:fileId', function(req, res, next) {
+  const File = mongoose.model('File');
+  const fileId = req.params.fileId;
+
+  File.findById(fileId, function(err, file) {
+    if (err) {
+      console.error(err);
+      return res.status(500).json(err);
+    }
+    if (!file) {
+      return res.status(404).json({message: "File not found"});
+    }
+
+    file.title = req.body.title;
+    file.description = req.body.description;
+
+    file.save(function(err, savedFile) {
+      if (err) {
+        console.error(err);
+        return res.status(500).json(err);
+      }
+      res.json(savedFile);
+    })
+
+  })
 
 });
 
-// GET /
-router.get('/', function(req, res) {
-  const imageGallery = mongoose.model('Image');
+/**
+ * Delete a file
+ */
+ router.delete('/file/:fileId', function(req, res, next) {
+   const File = mongoose.model('File');
+   const fileId = req.params.fileId;
 
-    imageGallery.find({}).sort({created_at: 'desc'}).limit(5).exec(function(err, images) {
-        if (err) {
-          console.log("Error: " + err);
-        } else {
+   File.findById(fileId, function(err, file) {
+     if (err) {
+       console.log(err);
+       return res.status(500).json(err);
+     }
+     if (!file) {
+       return res.status(404).json({message: "File not found"});
+     }
 
-           res.render('index', { images: images });
-        }
-      });
+     file.deleted = true;
 
+     file.save(function(err, doomedFile) {
+       res.json(doomedFile);
+     })
 
-  });
-
-
-
-//Render Gallery Page
-
-router.get("/gallery", function(req, res, next){
-
-});
-
+   })
+ });
 
 
 module.exports = router;
