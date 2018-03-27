@@ -75,10 +75,9 @@ function cancelFileForm() {
 }
 
 function handleUpdateClick(id) {
-  const file = window.fileList.find(file => file._id === id);
-  if (file) {
-    setFormData(file);
-    toggleAddFileFormVisibility();
+  const image = window.fileList.find(image => image._id === id);
+  if (image) {
+    setFormData(image);
   }
 }
 
@@ -95,9 +94,10 @@ function setFormData(data) {
   }
   };
 
-  $('#title').val(data.title);
-  $('#description').val(data.description);
-  $('#id').val(_id);
+  $('#file').val(data.file);
+  $('#title').val(data.imageData.title);
+  $('#description').val(data.imageData.description);
+  $('#imgId').val(data._id);
 }
 
 function deleteFile(id) {
