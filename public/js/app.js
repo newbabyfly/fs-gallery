@@ -75,10 +75,9 @@ function cancelFileForm() {
 }
 
 function handleUpdateClick(id) {
-  const file = window.fileList.find(file => file._id === id);
-  if (file) {
-    setFormData(file);
-    toggleAddFileFormVisibility();
+  const image = window.fileList.find(image => image._id === id);
+  if (image) {
+    setFormData(image);
   }
 }
 
@@ -89,26 +88,25 @@ function setFormData(data) {
   const image = {
     file: data.file || '',
     _id: data._id || '',
-    imageData: {
-      title: data.title || '',
-      description: data.description || ''
-  }
+    title: data.title || '',
+    description: data.description || ''
   };
 
-  $('#title').val(data.title);
-  $('#description').val(data.description);
-  $('#id').val(_id);
+  $('#file').val(data.file);
+  $('#title').val(data.imageData.title);
+  $('#description').val(data.imageData.description);
+  $('#imgId').val(data._id);
 }
 
 function deleteFile(id) {
   $.ajax({
     type: 'DELETE',
-    url: '/api/file/' + id,
+    url: '/api/image/' + id,
     dataType: 'json',
     contentType : 'application/json',
   })
     .done(function(response) {
-      console.log("File", id, "is DOOMED!!!!!!");
+      console.log("Image", id, "is DOOMED!!!!!!");
       refreshFileList();
     })
     .fail(function(error) {
