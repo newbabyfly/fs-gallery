@@ -35,17 +35,18 @@ function refreshFileList() {
 function submitFileForm() {
   console.log("You clicked 'submit'. Congratulations.");
 
-  const imgData = {
+  const fileData = {
     _id: $('#imgId').val(),
     file: $('#file').val(),
     title: $('#title').val(),
-    description: $('#description').val(),
+    description: $('#description').val()
+
   };
 
   let method, url;
-  if (imgData._id) {
+  if (fileData._id) {
     method = 'PUT';
-    url = '/api/addImage/' + imgData._id;
+    url = '/api/addImage/' + fileData._id;
   } else {
     method = 'POST';
     url = '/api/addImage';
@@ -54,7 +55,7 @@ function submitFileForm() {
   $.ajax({
     type: method,
     url: url,
-    data: JSON.stringify(imgData),
+    data: JSON.stringify(fileData),
     dataType: 'json',
     contentType : 'application/json',
   })
@@ -66,7 +67,7 @@ function submitFileForm() {
       console.log("Failures at posting, we are", error);
     })
 
-  console.log("Your file data", imgData);
+  console.log("Your file data", fileData);
 }
 
 function cancelFileForm() {

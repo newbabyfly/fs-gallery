@@ -19,6 +19,20 @@ router.get('/image',  function(req, res, next) {
   });
 });
 
+// Gallery page- Show All images
+router.get('/gallery',  function(req, res, next) {
+  const Image = mongoose.model('Image');
+
+  Image.find({deleted: {$ne: true}}, function(err, images) {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+
+    res.json(images);
+  });
+});
+
 /**
  * Get a single file by passing its id as a URL param
  */
