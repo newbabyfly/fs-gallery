@@ -20,8 +20,14 @@ router.get('/image',  function(req, res, next) {
 });
 
 // Gallery page- Show All images
-router.get('/gallery',  function(req, res, next) {
+router.get('/gallery',  function(req, res) {
   const Image = mongoose.model('Image');
+  const db = mongoose.connection;
+  db.collection('images').find().toArray(function(err, image) {
+  res.json(image)
+ });
+
+  /*
 
   Image.find({deleted: {$ne: true}}, function(err, images) {
     if (err) {
@@ -30,7 +36,7 @@ router.get('/gallery',  function(req, res, next) {
     }
 
     res.json(images);
-  });
+  });*/
 });
 
 /**
@@ -44,13 +50,14 @@ router.get('/image/:imageId', function(req, res, next) {
     return res.status(404).end(`Could not find file '${imageID}'`);
   }
 
-  res.json(image);
+  res.send(image);
 });
 
 /**
  * Create a new file
  */
 router.post('/addImage', function(req, res, next) {
+
   const Image = mongoose.model('Image');
   const imgData = {
     file: req.body.file,
@@ -62,6 +69,7 @@ router.post('/addImage', function(req, res, next) {
 
   Image.create(imgData, function(err, newImage) {
     if (err) {
+
       console.log(err);
       return res.status(500).json(err);
     }
@@ -72,11 +80,11 @@ router.post('/addImage', function(req, res, next) {
 /**
  * Update an existing file
  */
-router.put('/file/:fileId', function(req, res, next) {
-  const File = mongoose.model('File');
+router.put('/image/:imageId', function(req, res, next) {
+  const Image = mongoose.model('Image');
   const fileId = req.params.fileId;
 
-  File.findById(fileId, function(err, file) {
+  Image.findById(fileId, function(err, file) {
     if (err) {
       console.error(err);
       return res.status(500).json(err);
@@ -85,6 +93,7 @@ router.put('/file/:fileId', function(req, res, next) {
       return res.status(404).json({message: "File not found"});
     }
 
+    file.file = req.body.file;
     file.title = req.body.title;
     file.description = req.body.description;
 

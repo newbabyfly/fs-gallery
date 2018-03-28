@@ -19,20 +19,6 @@ const db = mongoose.connection;
 // Import all models
 require('./models/file.model.js');
 
-
-/*const app = express();
-const publicPath = path.resolve(__dirname, '../public');
-const galleryPath = path.resolve(__dirname, '../public/gallery');
-app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/", router); //move below path to use handlebars
-app.use(express.static(publicPath));
-app.set('view engine', 'pug');
-app.set('views', __dirname + '/../views'); */
-
-
-
-
 const app = express();
 const publicPath = path.resolve(__dirname, '../public');
 app.use(bodyParser.json());

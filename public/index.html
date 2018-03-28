@@ -13,7 +13,7 @@
 	<div id="header">
 		<h1><a href="index.html">A Simple Gallery Script</a></h1>
 	</div>
-	<h2>Recently Added Images | <a href="gallery">All Images</a></h2> 
+	<h2>Recently Added Images | <a href="gallery">All Images</a></h2>
 	<div id="list-container"></div>
 
 	<div id="main">
@@ -22,6 +22,7 @@
 		  <div id="form-container">
 
 		    <form id="add-image-form" action="/addImage">
+					<input id="imgId" type="hidden" value=""/>
 		      <div class="form-group">
 		        <label class="custom-file" for="file">Upload Image</label>
 		        <input class="form-control" id="file" type="text" placeholder="Image File Name" />
@@ -34,8 +35,7 @@
 		        <label for="description">Description</label>
 		        <input class="form-control" id="description" type="text" placeholder="Description"  />
 		      </div>
-					<input id="imgId" type="hidden" value=""/>
-		      <button type="button" onclick="submitFileForm()" class="btn btn-success">Submit</button>
+					<button type="button" onclick="submitFileForm()" class="btn btn-success">Submit</button>
 		    </form>
 		  </div>
 		</div>

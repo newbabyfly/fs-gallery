@@ -1,6 +1,6 @@
 
 function getImages() {
-  return $.ajax('/api/image')
+  return $.ajax('api/image')
     .then(res => {
       console.log("Results from getImages()", res);
       return res;
@@ -36,7 +36,7 @@ function submitFileForm() {
   console.log("You clicked 'submit'. Congratulations.");
 
   const fileData = {
-    _id: $('#imgId').val(),
+    id: $('#imgId').val(),
     file: $('#file').val(),
     title: $('#title').val(),
     description: $('#description').val()
@@ -46,7 +46,7 @@ function submitFileForm() {
   let method, url;
   if (fileData._id) {
     method = 'PUT';
-    url = '/api/addImage/' + fileData._id;
+    url = '/addImage' + fileData.id;
   } else {
     method = 'POST';
     url = '/api/addImage';
@@ -75,10 +75,11 @@ function cancelFileForm() {
 }
 
 function handleUpdateClick(id) {
+  console.log('edit me');
   const image = window.fileList.find(image => image._id === id);
   if (image) {
     setFormData(image);
-  }
+}
 }
 
 
@@ -99,6 +100,7 @@ function setFormData(data) {
   $('#description').val(data.imageData.description);
   $('#imgId').val(data._id);
 }
+
 
 function deleteFile(id) {
   $.ajax({
