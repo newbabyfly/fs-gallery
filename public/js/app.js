@@ -69,15 +69,16 @@ function submitFileForm() {
   console.log("Your file data", fileData);
 }
 
+// Update Click handler
 function handleUpdateClick(id) {
   showForm();
   const file = window.fileList.find(file => file._id === id);
   if (file) {
     setFormData(file);
-}
+  }
 }
 
-
+// Update form with db data
 function setFormData(data) {
   data = data || {};
 
@@ -96,7 +97,7 @@ function setFormData(data) {
   $('#imgId').val(data._id);
 }
 
-
+// Delete Entry
 function deleteFile(id) {
   $.ajax({
     type: 'DELETE',
@@ -113,6 +114,7 @@ function deleteFile(id) {
     })
 }
 
+//Handle Delete CLick
 function handleDeleteClick(id) {
   if (confirm("Are you sure?")) {
     deleteFile(id);
@@ -130,15 +132,16 @@ function formReset() {
 }
 
 
-// Toggle Form Visiblily
+// Toggle Form Overlay on and off
+//show and reset fields
 function showForm(){
         document.getElementById("overlay").style.display = "block";
           $('.center').show();
           $(this).hide();
           formReset();
-
     }
 
+//Hide Form
 function hideForm(){
       document.getElementById("overlay").style.display = "none";
         $('.center').hide();

@@ -3,9 +3,7 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 
 
-/**
- * Get a list of all files in the DB
- */
+// Get Most recent images
 router.get('/image',  function(req, res, next) {
   const Image = mongoose.model('Image');
 
@@ -28,18 +26,17 @@ router.get('/gallery',  function(req, res) {
  });
 });
 
-/**
- * Get a single file by passing its id as a URL param
- */
+//get Single file - Not Working
 router.get('/image/:imageId', function(req, res, next) {
-  const {imageID} = req.params;
-  const image = IMAGES.find(entry => entry.id === imageId);
+  /*const {imageID} = req.params;
+  const FILES = mongoose.model('Image');
+  const images = FILES.find(entry => entry.id === imageId);
 
-  if (!image) {
+  if (!images) {
     return res.status(404).end(`Could not find file '${imageID}'`);
   }
 
-  res.json(image);
+  res.json();*/
 });
 
 /**
