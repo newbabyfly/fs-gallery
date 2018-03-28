@@ -39,7 +39,7 @@ router.get('/image/:imageId', function(req, res, next) {
     return res.status(404).end(`Could not find file '${imageID}'`);
   }
 
-  res.send(image);
+  res.json(image);
 });
 
 /**

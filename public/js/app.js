@@ -1,4 +1,5 @@
 
+//get Recent Images
 function getImages() {
   return $.ajax('api/image')
     .then(res => {
@@ -27,11 +28,7 @@ function refreshFileList() {
 }
 
 
-/*function handleAddFileClick() {
-  setFormData({});
-}*/
-
-
+// Handle Submit form Acctions
 function submitFileForm() {
   console.log("You clicked 'submit'. Congratulations.");
 
@@ -61,6 +58,8 @@ function submitFileForm() {
   })
     .done(function(response) {
       console.log("We have posted the data");
+      hideForm();
+      confirm("Image Updated!")
       refreshFileList();
     })
     .fail(function(error) {
@@ -70,12 +69,8 @@ function submitFileForm() {
   console.log("Your file data", fileData);
 }
 
-function cancelFileForm() {
-  toggleAddFileFormVisibility();
-}
-
 function handleUpdateClick(id) {
-  console.log('edit me');
+  showForm();
   const image = window.fileList.find(image => image._id === id);
   if (image) {
     setFormData(image);
@@ -127,3 +122,25 @@ function handleDeleteClick(id) {
 
 
 refreshFileList();
+
+
+//reset form
+function formReset() {
+  $("#add-image-form")[0].reset();
+}
+
+
+// Toggle Form Visiblily
+function showForm(){
+        document.getElementById("overlay").style.display = "block";
+          $('.center').show();
+          $(this).hide();
+          formReset();
+
+    }
+
+function hideForm(){
+      document.getElementById("overlay").style.display = "none";
+        $('.center').hide();
+        $('#show').show();
+    }
