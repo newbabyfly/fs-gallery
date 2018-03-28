@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 router.get('/image',  function(req, res, next) {
   const Image = mongoose.model('Image');
 
-  Image.find({deleted: {$ne: true}}).sort({created_at: 'desc'}).limit(5).exec( function(err, images) {
+  Image.find({deleted: {$ne: true}}).sort({created_at: 'desc'}).limit(6).exec( function(err, images) {
     if (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -26,17 +26,6 @@ router.get('/gallery',  function(req, res) {
   db.collection('images').find().toArray(function(err, image) {
   res.json(image)
  });
-
-  /*
-
-  Image.find({deleted: {$ne: true}}, function(err, images) {
-    if (err) {
-      console.log(err);
-      return res.status(500).json(err);
-    }
-
-    res.json(images);
-  });*/
 });
 
 /**
@@ -82,9 +71,9 @@ router.post('/addImage', function(req, res, next) {
  */
 router.put('/image/:imageId', function(req, res, next) {
   const Image = mongoose.model('Image');
-  const fileId = req.params.fileId;
+  const imageId = req.params.imageId;
 
-  Image.findById(fileId, function(err, file) {
+  Image.findById(imageId, function(err, file) {
     if (err) {
       console.error(err);
       return res.status(500).json(err);
@@ -112,11 +101,11 @@ router.put('/image/:imageId', function(req, res, next) {
 /**
  * Delete a file
  */
- router.delete('/file/:fileId', function(req, res, next) {
-   const File = mongoose.model('File');
-   const fileId = req.params.fileId;
+ router.delete('/image/:imageId', function(req, res, next) {
+   const Image = mongoose.model('Image');
+   const imageId = req.params.imageId;
 
-   File.findById(fileId, function(err, file) {
+   Image.findById(imageId, function(err, file) {
      if (err) {
        console.log(err);
        return res.status(500).json(err);

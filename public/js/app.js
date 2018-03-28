@@ -105,7 +105,7 @@ function setFormData(data) {
 function deleteFile(id) {
   $.ajax({
     type: 'DELETE',
-    url: '/api/file/' + id,
+    url: '/api/image/' + id,
     dataType: 'json',
     contentType : 'application/json',
   })
@@ -118,7 +118,7 @@ function deleteFile(id) {
     })
 }
 
-function handleDeleteFileClick(id) {
+function handleDeleteClick(id) {
   if (confirm("Are you sure?")) {
     deleteFile(id);
   }
