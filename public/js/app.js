@@ -1,7 +1,6 @@
-
 //get Recent Images
 function getImages() {
-  return $.ajax('api/image')
+  return $.ajax('/image')
     .then(res => {
       console.log("Results from getImages()", res);
       return res;
@@ -43,10 +42,11 @@ function submitFileForm() {
   let method, url;
   if (fileData._id) {
     method = 'PUT';
-    url = '/addImage' + fileData.id;
+    url = '/image/' + id;
+
   } else {
     method = 'POST';
-    url = '/api/addImage';
+    url = '/image/';
   }
 
   $.ajax({
@@ -71,9 +71,9 @@ function submitFileForm() {
 
 function handleUpdateClick(id) {
   showForm();
-  const image = window.fileList.find(image => image._id === id);
-  if (image) {
-    setFormData(image);
+  const file = window.fileList.find(file => file._id === id);
+  if (file) {
+    setFormData(file);
 }
 }
 
@@ -100,16 +100,16 @@ function setFormData(data) {
 function deleteFile(id) {
   $.ajax({
     type: 'DELETE',
-    url: '/api/image/' + id,
+    url: '/image/' + id,
     dataType: 'json',
     contentType : 'application/json',
   })
     .done(function(response) {
-      console.log("File", id, "is DOOMED!!!!!!");
+      console.log("File", id, "deleted.");
       refreshFileList();
     })
     .fail(function(error) {
-      console.log("I'm not dead yet!", error);
+      console.log("Delete Failed.", error);
     })
 }
 
@@ -143,4 +143,4 @@ function hideForm(){
       document.getElementById("overlay").style.display = "none";
         $('.center').hide();
         $('#show').show();
-    }
+}

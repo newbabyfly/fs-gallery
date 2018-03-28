@@ -23,7 +23,7 @@ const app = express();
 const publicPath = path.resolve(__dirname, '../public');
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
-app.use('/api', router);
+app.use('/', router);
 
 
 //Catch 404
