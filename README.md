@@ -10,17 +10,24 @@ Requirements:
 - Handlebars
 - JQuery
 
-Immediate To Do list:
-- Get update and delete working
-- fix file upload form to not include fakepath
-- add main gallery page
-- make it pretty
+Setup:
+  - Run "npm install"
+  - Run MongoDB
 
-If time before due date:
-- add user authentication and logins
+To Do Now list:
+- Get main gallery/view all page working
+- Make everything work with a proper HB templating system
+- Form Validation
+- Better Error messages/pages
+
+
+To Do Later:
 - Get actual image/file uploader running
+- User logins
+- add user authentication/encryption for logins
+
 
 Long Term goals:
-- add albums/catergories feature for image sorting. Tags maybe?
+- add albums/categories feature
+-- Add Sort options
 - pagination between individual images
-- comic reader mode?
