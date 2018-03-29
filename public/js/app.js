@@ -43,6 +43,7 @@ function submitFileForm() {
     url = '/image/' + fileData._id;
 
   } else {
+    formReset();
     method = 'POST';
     url = '/image/';
   }
@@ -57,6 +58,7 @@ function submitFileForm() {
     .done(function(response) {
       console.log("We have posted the data");
       hideForm();
+      formReset();
       refreshFileList();
     })
     .fail(function(error) {
@@ -69,9 +71,9 @@ function submitFileForm() {
 // Update Click handler
 function handleUpdateClick(id) {
   showForm();
-  const file = window.fileList.find(file => file._id === id);
-  if (file) {
-    setFormData(file);
+  const image = window.fileList.find(image => image._id === id);
+  if (image) {
+    setFormData(image);
   }
 }
 
@@ -79,7 +81,7 @@ function handleUpdateClick(id) {
 function setFormData(data) {
   data = data || {};
 
-  const image = {
+  const fileData = {
     file: data.file || '',
     _id: data._id || '',
     imageData: {
@@ -135,7 +137,6 @@ function showForm(){
         document.getElementById("overlay").style.display = "block";
           $('.center').show();
           $(this).hide();
-          formReset();
     }
 
 //Hide Form
