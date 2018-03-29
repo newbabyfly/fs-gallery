@@ -25,14 +25,14 @@
 			<div class="responsive-menu">
 				<ul>
 						<li><a href="/">Recent Images</a></li>
-						<li><a href="/gallery">All Images</a></li>
+						<li><a href="/images">All Images</a></li>
 						<li><button id="show" class="btn-link lightlinks" onclick="showForm()"><strong>Add Image</strong></button></li>
 				</ul>
 			 </div>
 		</div>
 	</header>
 
-	<section id="portfolio" class="portfolio breakfloat hidden-xs">
+	<section id="portfolio" class="portfolio breakfloat">
 		<div id="list-container"></div>
 
 
@@ -58,15 +58,15 @@
 	 	 </form>
 	  </div>
 </div>
-	<div id="footer">A very much work in progress from Leigh Stein</div>
+	<div id="footer" class="breakfloat">A very much work in progress from Leigh Stein</div>
 </section>
 </div>
 
 <script id="list-template" type="text/x-handlebars-template">
 
-<div class="row">
+
   {{#each images}}
-    <div class="col-md-3 imgCollect">
+    <div class="imgCollect">
       <a href="#" data-featherlight="uploads/{{file}}" class="lightbox_trigger">
 				<img src="uploads/{{file}}" height="100px"/></a>
       <p><strong>{{imageData.title}}</strong></p>
@@ -75,7 +75,7 @@
       <button type="button" class="btn btn-xs btn-danger" onclick="handleDeleteClick('{{_id}}')">Delete</button>
     </div>
   {{/each}}
-</div>
+
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 router.get('/image',  function(req, res, next) {
   const Image = mongoose.model('Image');
 
-  Image.find({deleted: {$ne: true}}).sort({created_at: 'desc'}).limit(6).exec( function(err, images) {
+  Image.find({deleted: {$ne: true}}).sort({created_at: 'desc'})/*.limit(6)*/.exec( function(err, images) {
     if (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -86,11 +86,11 @@ router.post('/image', function(req, res, next) {
 
      image.save(function(err, savedFile) {
        if (err) {
-         console.log("Broke here!");
          console.error(err);
          return res.status(500).json(err);
        }
        res.json(savedFile);
+
      })
 
    })
@@ -110,7 +110,7 @@ router.post('/image', function(req, res, next) {
        return res.status(500).json(err);
      }
      if (!file) {
-       return res.status(404).json({message: "File not found"});
+       return res.status(404).json({message: "File not found."});
      }
 
      file.deleted = true;

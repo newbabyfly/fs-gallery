@@ -24,6 +24,8 @@ function refreshFileList() {
       const html = compiledTemplate(data);
       $('#list-container').html(html);
 })
+
+formReset();
 }
 
 
@@ -43,7 +45,6 @@ function submitFileForm() {
     url = '/image/' + fileData._id;
 
   } else {
-    formReset();
     method = 'POST';
     url = '/image/';
   }
@@ -58,7 +59,6 @@ function submitFileForm() {
     .done(function(response) {
       console.log("We have posted the data");
       hideForm();
-      formReset();
       refreshFileList();
     })
     .fail(function(error) {
@@ -66,7 +66,9 @@ function submitFileForm() {
     })
 
   console.log("Your file data", fileData);
+  formReset();
 }
+
 
 // Update Click handler
 function handleUpdateClick(id) {
@@ -128,6 +130,7 @@ refreshFileList();
 //reset form
 function formReset() {
   $("#add-image-form")[0].reset();
+  $("input[type=hidden]").val('');
 }
 
 
@@ -137,6 +140,7 @@ function showForm(){
         document.getElementById("overlay").style.display = "block";
           $('.center').show();
           $(this).hide();
+          formReset();
     }
 
 //Hide Form

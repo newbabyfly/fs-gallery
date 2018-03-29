@@ -36,6 +36,8 @@ body {
 	background-size:75%;
 }
 
+.breakfloat { clear: both;}
+
 
 /*------------- Image styling --------------------- */
 img {
@@ -141,18 +143,24 @@ header a {
 
 
 #portfolio {
+  text-align:center;
+  margin: 0 auto;
 	background: rgba(13, 35, 33, 100);
 	padding-top:20px;
 	color:#fff;
 }
 
+#template {
+  text-align:center;
+  margin:0 auto;
+}
 
 
-.imgplaceholder {
+/*.imgplaceholder {
 	height:250px;
 	flex-grow:1;
 	margin:20px;
-}
+}*/
 
 #list-container {
       margin: auto;
@@ -160,6 +168,9 @@ header a {
 }
 
 .imgCollect{
+  display: inline-block;
+  float:left;
+  width: 25%;
   text-align:center;
   padding:2%;
   margin:.5%;
