@@ -20,7 +20,9 @@ body {
 	margin:0 auto;
 }
 
-
+.darken-txt {
+  color:#000;
+}
 .darken-bg {
 		background: rgba(13, 35, 33, 0.6);
 }
@@ -135,13 +137,29 @@ header a {
   padding:10px;
   margin-bottom:20px;
 }
+
+
+
+#portfolio {
+	background: rgba(13, 35, 33, 100);
+	padding-top:20px;
+	color:#fff;
+}
+
+
+
+.imgplaceholder {
+	height:250px;
+	flex-grow:1;
+	margin:20px;
+}
+
 #list-container {
       margin: auto;
       width: 80%;
 }
 
 .imgCollect{
-  background:#fff;
   text-align:center;
   padding:10px;
   margin:.5%;
@@ -149,7 +167,7 @@ header a {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-/** Form Placement and Style **/
+/* ------------- Form Placement and Style-------------- */
 .center {
     margin: auto;
     width: 60%;
@@ -166,6 +184,7 @@ header a {
 }
 
 #overlay {
+  color: #000;
     position: fixed;
     display: none;
     width: 100%;
@@ -180,6 +199,14 @@ header a {
 }
 .hideform {
     display: none;
+}
+
+/*-------------- Footer ---------------*/
+
+#footer {
+  font-size:1em;
+	padding: 20px 0 20px 0;
+	text-align:center;
 }
 
 /*---------------- Mobile Styling ---------------------*/

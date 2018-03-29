@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 <title>A Simple Portfolio App</title>
+<link href="https://fonts.googleapis.com/css?family=Lekton:400,400i,700" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.12/release/featherlight.min.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="css/main.css" />
@@ -24,15 +25,16 @@
 			<div class="responsive-menu">
 				<ul>
 						<li><a href="/">Recent Images</a></li>
-						<li><a href="gallery">All Images</a></li>
-						<li><button id="show" onclick="showForm()">Add Image</button></li>
+						<li><a href="/gallery">All Images</a></li>
+						<li><button id="show" class="btn-link lightlinks" onclick="showForm()"><strong>Add Image</strong></button></li>
 				</ul>
 			 </div>
 		</div>
 	</header>
 
+	<section id="portfolio" class="portfolio breakfloat hidden-xs">
+		<div id="list-container"></div>
 
-	<div id="list-container"></div>
 
 	<div id="overlay">
 		<div id="form-container" class="center hideform">
@@ -42,7 +44,7 @@
 	 		 <div class="form-group">
 	 			 <label class="custom-file" for="file">Upload Image</label>
 	 			 <input class="form-control" id="file" type="text" placeholder="Image File Name" />
-	 		 </div>
+			 </div>
 	 		 <div class="form-group">
 	 			 <label for="title">Title</label>
 	 			 <input class="form-control" id="title" type="text" placeholder="Title" />
@@ -56,8 +58,8 @@
 	 	 </form>
 	  </div>
 </div>
-	<div id="footer"></div>
-
+	<div id="footer">Created by Leigh Stein</div>
+</section>
 </div>
 
 <script id="list-template" type="text/x-handlebars-template">

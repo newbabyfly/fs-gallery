@@ -4,58 +4,90 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 <title>A Simple Portfolio App</title>
-<!-- <link rel="stylesheet" type="text/css" href="css/style.css" /> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+<link href="//cdn.rawgit.com/noelboss/featherlight/1.7.12/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
 <body>
-<div id="wrapper">
-	<div id="header">
-		<h1><a href="index.html">A Simple Gallery Script</a></h1>
-	</div>
-	<h2>Recently Added Images</h2>
 
-		<script id="list-template" type="text/x-handlebars-template">
-			<ul class="list-group">
-				{{#each image}}
-					<li class="list-group-item">
-						<strong>{{file}}</strong> - {{imageData.title}}
-					</li>
-				{{/each}}
-			</ul>
-		</script>
+	<header class="lightlinks lighttext">
+		<div class="intro">
+			<h1 id="homelink"><img src="img/half-circle.png" class="branding hidden-xs"> <a href="index.html">A Simple Gallery Script</a><br></h1>
+			<div class="mobile-nav darken-bg">
+					<div class="menu-btn" id="menu-btn">
+						 <div></div>
+							<span></span>
+							<span></span>
+							<span></span>
+			</div>
 
-	<div id="main">
-
-
-		  <div id="form-container">
-
-		    <form id="add-image-form" action="/addImage" method="POST" enctype="multipart/form-data">
-		      <div class="form-group">
-		        <label class="custom-file" for="imgFile">Upload Image</label>
-		        <input class="custom-file-input" id="file" type="file" placeholder="File" name="file"/><span class="custom-file-control"></span>
-				  </div>
-		      <div class="form-group">
-		        <label for="imgTitle">Title</label>
-		        <input class="form-control" id="title" type="text" placeholder="Title" name="imgTitle"/>
-		      </div>
-		      <div class="form-group">
-		        <label for="imgDescription">Description</label>
-		        <input class="form-control" id="description" type="text" placeholder="Description" name="imgDescription"/>
-		      </div>
-					<input id="imgId" type="hidden" value="" name="imgId"/>
-		      <button type="button" onclick="submitFileForm()" class="btn btn-success">Submit</button>
-		    </form>
-		  </div>
+			<div class="responsive-menu">
+				<ul>
+						<li><a href="/">Recent Images</a></li>
+						<li><a href="gallery">All Images</a></li>
+						<li><button id="show" onclick="showForm()">Add Image</button></li>
+				</ul>
+			 </div>
 		</div>
+	</header>
 
 
-	</div>
+	<div id="list-container"></div>
+
+	<div id="overlay">
+		<div id="form-container" class="center hideform">
+			<h3>Add File</h3>
+	 	 <form id="add-image-form">
+	 		 <input type="hidden" id="file-id" value="" />
+	 		 <div class="form-group">
+	 			 <label class="custom-file" for="file">Upload Image</label>
+	 			 <input class="form-control" id="file" type="text" placeholder="Image File Name" />
+	 		 </div>
+	 		 <div class="form-group">
+	 			 <label for="title">Title</label>
+	 			 <input class="form-control" id="title" type="text" placeholder="Title" />
+	 		 </div>
+	 		 <div class="form-group">
+	 			 <label for="description">Description</label>
+	 			 <input class="form-control" id="description" type="text" placeholder="Description"  />
+	 		 </div>
+	 		 <button type="button" onclick="submitFileForm()" class="btn btn-success">Submit</button>
+	 		 <button type="button" id="close" onclick="hideForm()" class="btn btn-danger">Cancel</button>
+	 	 </form>
+	  </div>
+</div>
 	<div id="footer"></div>
 
 </div>
+
+<script id="list-template" type="text/x-handlebars-template">
+
+<div class="row">
+  {{#each images}}
+    <div class="col-md-3 imgCollect">
+      <a href="#" data-featherlight="uploads/{{file}}" class="lightbox_trigger">
+				<img src="uploads/{{file}}" height="100px"/></a>
+      <p><strong>{{imageData.title}}</strong> - {{_id}}</p>
+      <p>{{imageData.description}}</p>
+      <button type="button" id="show" class="btn btn-xs btn-success" onclick="handleUpdateClick('{{_id}}')">Edit</button>
+      <button type="button" class="btn btn-xs btn-danger" onclick="handleDeleteClick('{{_id}}')">Delete</button>
+    </div>
+  {{/each}}
+</div>
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.min.js"></script>
+	<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.12/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/js/app.js"></script>
 </body>
+<script type="text/javascript">
+	jQuery(function($){
+					 $( '.menu-btn' ).click(function(){
+					 $('.responsive-menu').toggleClass('expand')
+					 })
+				})
+</script>
+</body>
+
 </html>

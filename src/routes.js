@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 
 // Get Most recent images
-router.get('/images',  function(req, res, next) {
+router.get('/image',  function(req, res, next) {
   const Image = mongoose.model('Image');
 
   Image.find({deleted: {$ne: true}}).sort({created_at: 'desc'}).limit(6).exec( function(err, images) {
@@ -22,27 +22,28 @@ router.get('/gallery',  function(req, res) {
   const Image = mongoose.model('Image');
   const db = mongoose.connection;
   db.collection('images').find({deleted: {$ne: true}}).toArray(function(err, image) {
-  res.json(image)
+  res.json(image);
  });
 });
 
-//get Single file - Not Working
-router.get('images/:fileId', function(req, res, next) {
+//get Single file - Not Working?
+router.get('/image/:imageID', function(req, res, next) {
+  console.log("hello");
   //const {fileId} = req.params;
-  const fileId = req.params.fileId
-
-  const file = FILES.find(entry => entry.id === fileId);
+  const Image = mongoose.model('Image');
+  const imageID = req.params.imageId;
+  const image = FILES.find(entry => entry.id === imageID);
   if (!file) {
-    return res.status(404).end(`Could not find file '${fileId}'`);
+    return res.status(404).end(`Could not find file '${imageID}'`);
   }
 
-  res.json(file);
+  res.json(image);
 });
 
 /**
  * Create a new file
  */
-router.post('/images', function(req, res, next) {
+router.post('/image', function(req, res, next) {
 
   const Image = mongoose.model('Image');
   const imgData = {
@@ -65,24 +66,24 @@ router.post('/images', function(req, res, next) {
 /**
  * Update an existing file
  */
- router.put('/images/:imageID', function(req, res, next) {
-   const Image = mongoose.model('Images');
+ router.put('/image/:imageID', function(req, res, next) {
+   const Image = mongoose.model('Image');
    const imageID = req.params.fileId;
 
-   Image.findById(fileId, function(err, images) {
+   Image.findById(imageID, function(err, image) {
      if (err) {
        console.error(err);
        return res.status(500).json(err);
      }
-     if (!images) {
+     if (!image) {
        return res.status(404).json({message: "File not found"});
      }
 
-     images.file = req.body.file;
-     images.title = req.body.title;
-     images.description = req.body.description;
+     image.file = req.body.file;
+     image.imageData.title = req.body.title;
+     image.imageData.description = req.body.description;
 
-     images.save(function(err, savedFile) {
+     image.save(function(err, savedFile) {
        if (err) {
          console.error(err);
          return res.status(500).json(err);
