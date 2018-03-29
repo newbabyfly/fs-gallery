@@ -10,17 +10,35 @@
 </head>
 <body>
 
-	<div id="header">
-		<h1><a href="index.html">A Simple Gallery Script</a></h1>
-	</div>
-	<h2 id="nav">Recent Images | <a href="gallery">All Images</a> | <button id="show" onclick="showForm()">Add Image</button></h2>
+	<header class="lightlinks lighttext">
+		<div class="intro">
+			<h1 id="homelink"><img src="img/half-circle.png" class="branding hidden-xs"> <a href="index.html">A Simple Gallery Script</a><br></h1>
+			<div class="mobile-nav darken-bg">
+					<div class="menu-btn" id="menu-btn">
+						 <div></div>
+							<span></span>
+							<span></span>
+							<span></span>
+			</div>
+
+			<div class="responsive-menu">
+				<ul>
+						<li><a href="/">Recent Images</a></li>
+						<li><a href="gallery">All Images</a></li>
+						<li><button id="show" onclick="showForm()">Add Image</button></li>
+				</ul>
+			 </div>
+		</div>
+	</header>
+
+
 	<div id="list-container"></div>
 
 	<div id="overlay">
 		<div id="form-container" class="center hideform">
 			<h3>Add File</h3>
-	 	 <form id="add-image-form" action="/addImage">
-	 		 <input id="imgId" type="hidden" value=""/>
+	 	 <form id="add-image-form">
+	 		 <input type="hidden" id="file-id" value="" />
 	 		 <div class="form-group">
 	 			 <label class="custom-file" for="file">Upload Image</label>
 	 			 <input class="form-control" id="file" type="text" placeholder="Image File Name" />
@@ -63,4 +81,13 @@
 	<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.12/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/js/app.js"></script>
 </body>
+<script type="text/javascript">
+	jQuery(function($){
+					 $( '.menu-btn' ).click(function(){
+					 $('.responsive-menu').toggleClass('expand')
+					 })
+				})
+</script>
+</body>
+
 </html>

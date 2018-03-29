@@ -1,12 +1,133 @@
-body {
-    text-align: center;
+/*---------- browser standard resets ----- */
+
+* {
+	padding:0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
-#header {
-  text-align: center;
-  padding:20px;
-  margin-bottom:30px;
+
+
+/*----------- Global Styles---------------*/
+
+body {
+	color:#000000;
+	background: #caced1;
+	}
+
+#wrapper {
+	width: 100%;
+	margin:0 auto;
 }
+
+
+.darken-bg {
+		background: rgba(13, 35, 33, 0.6);
+}
+
+.smll-txt {
+	font-size: .75em;
+}
+
+.circle-bg {
+	background: url("../img/circle-bg.png") no-repeat right center;
+	background-size:75%;
+}
+
+
+/*------------- Image styling --------------------- */
+img {
+  max-width:100%;
+max-height:100%;
+}
+
+.img-rounding {
+	border-radius: 10%;
+}
+
+
+/*--- Link Styles ---*/
+
+a {
+	color: #950020;
+	font-weight:bold;
+}
+
+a:hover {
+	color: #c50730;
+	text-decoration:none;
+	}
+
+a:active {
+	color: #c50730;
+	text-decoration:none;
+}
+
+.lightlinks {
+	color: #ccc;
+}
+
+.lightlinks a {
+	color:#ccc;
+}
+
+.lightlinks a:hover {
+	color:#fc576d;
+	text-decoration:none;
+}
+
+/*------------ Heading Styles -----------------*/
+
+h1 {
+	font: 3em Lekton;
+	font-weight:700;
+}
+
+h2 {
+	font: 2em/1 Lekton;
+	font-weight:700;
+	margin-bottom:20px;
+}
+
+h3 {
+	font: 1.5em/1 Lekton;
+	font-weight:700;
+}
+
+.center-underline {
+	text-align: center;
+	padding-bottom:15px;
+	border-bottom: 1px solid;
+}
+
+/*-------------- Header ----------------------*/
+
+header {
+	background:#ccc;
+	margin: auto;
+	background: url("../img/header-bg.jpg") no-repeat top center;
+	background-size: cover;
+	text-align:center;
+	border-top:35px;
+	border-style: solid;
+	border-color: rgba(13, 35, 33, 1);
+}
+
+h1#homelink  {
+	text-decoration:none;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin-bottom:0;
+}
+
+header a {
+	text-decoration: none;
+}
+
+.branding {
+	width:15%;
+}
+
 
 #nav {
   text-align:center;
@@ -20,6 +141,7 @@ body {
 }
 
 .imgCollect{
+  background:#fff;
   text-align:center;
   padding:10px;
   margin:.5%;
@@ -58,4 +180,150 @@ body {
 }
 .hideform {
     display: none;
+}
+
+/*---------------- Mobile Styling ---------------------*/
+
+@media screen and (max-width: 480px) {
+
+
+header {
+	padding-bottom: 15px;
+}
+
+	/*----------- Mobile Menu styles -----------*/
+	.mobile-nav {
+		position: fixed;
+		top:0;
+		left:0;
+		padding:10px;
+		width:100%;
+		z-index:99;
+		background: rgba(13, 35, 33, .9);
+	}
+
+
+	.menu-btn div {
+  	position: absolute;
+  	left: 100%;
+  	top: 0;
+  	padding-right: 8px;
+  	margin-top: -0.50em;
+  	line-height: 1.2;
+  	font-size: 18px;
+  	font-weight: 200;
+  	vertical-align: middle;
+  	z-index: 99;
+  }
+
+  .menu-btn span {
+  	display: block;
+  	width: 19px;
+  	height: 3px;
+  	margin: 4px 0;
+  	background:#fff;
+  	z-index: 99;
+  }
+
+  .responsive-menu{
+  	display: none;
+  }
+
+	.responsive-menu a {
+		display:block;
+		padding:3%;
+		width:100%;
+		text-align:center;
+	}
+
+	.responsive-menu a:hover {
+		background:#881630;
+		color:#fff;
+	}
+
+  .expand {
+  	display: block !important;
+  }
+
+/*----- Extra Mobile Fixes -----------*/
+
+		input, textarea, button {padding:2%;}
+
+		.subpage .content {
+			padding-bottom: 20px;
+		}
+}
+
+
+/*--------------- Tablets ------------*/
+
+@media screen and (min-width: 480px) and (max-width:760px) {
+
+	header {
+		padding:35px 0 25px 0;
+	}
+
+	.restrict-width {
+		padding:4%;
+	}
+
+	.mobile-nav li {
+		display:inline-block;
+		margin-left:20px;
+		font-size: 1.2em;
+		padding: 15px 5px 15px 5px;
+	}
+
+		.subpage .responsive-menu {
+			position: absolute;
+			top:0;
+			right:0;
+			width:100%;
+			height: 45px;
+			text-align:right;
+			background: rgba(13, 35, 33, 1);
+			padding-right:30px;
+		}
+
+}
+
+
+/*--------------- Full Size Screens ------------*/
+
+@media screen and (min-width: 760px) {
+
+.intro {
+	padding:20px 0 50px 0;
+}
+
+	.mobile-nav li {
+		display:inline-block;
+		margin-left:20px;
+		font-size: 1.5em;
+		padding: 10px;
+	}
+
+
+
+/* ------ Portfolio Full Sized Style ---------*/
+
+	.subpage header {
+		height:250px;
+		padding-top: 20px;
+	}
+
+	.subpage .responsive-menu {
+		position: absolute;
+		top:0;
+		right:0;
+		width:100%;
+		height: 45px;
+		text-align:right;
+		font-size: 1.3rem;
+		background: rgba(13, 35, 33, 1);
+		padding-right:50px;
+	}
+
+
+
 }

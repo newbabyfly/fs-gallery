@@ -1,6 +1,6 @@
 //get Recent Images
 function getImages() {
-  return $.ajax('/image')
+  return $.ajax('/images')
     .then(res => {
       console.log("Results from getImages()", res);
       return res;
@@ -29,24 +29,22 @@ function refreshFileList() {
 
 // Handle Submit form Acctions
 function submitFileForm() {
-  console.log("You clicked 'submit'. Congratulations.");
-
   const fileData = {
-    id: $('#imgId').val(),
     file: $('#file').val(),
     title: $('#title').val(),
-    description: $('#description').val()
+    description: $('#description').val(),
+    _id: $('#file-id').val(),
 
   };
 
   let method, url;
   if (fileData._id) {
     method = 'PUT';
-    url = '/image/' + id;
+    url = '/images/' + fileData._id;
 
   } else {
     method = 'POST';
-    url = '/image/';
+    url = '/images/';
   }
 
   $.ajax({
@@ -59,7 +57,6 @@ function submitFileForm() {
     .done(function(response) {
       console.log("We have posted the data");
       hideForm();
-      confirm("Image Updated!")
       refreshFileList();
     })
     .fail(function(error) {
@@ -94,7 +91,7 @@ function setFormData(data) {
   $('#file').val(data.file);
   $('#title').val(data.imageData.title);
   $('#description').val(data.imageData.description);
-  $('#imgId').val(data._id);
+  $('#file-id').val(file._id);
 }
 
 // Delete Entry
