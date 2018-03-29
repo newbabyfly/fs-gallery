@@ -66,9 +66,9 @@ router.post('/image', function(req, res, next) {
 /**
  * Update an existing file
  */
- router.put('/image/:imageID', function(req, res, next) {
+ router.put('/image/:imageId', function(req, res, next) {
    const Image = mongoose.model('Image');
-   const imageID = req.params.fileId;
+   const imageID = req.params.imageId;
 
    Image.findById(imageID, function(err, image) {
      if (err) {
@@ -76,6 +76,7 @@ router.post('/image', function(req, res, next) {
        return res.status(500).json(err);
      }
      if (!image) {
+       console.log("It broke here!");
        return res.status(404).json({message: "File not found"});
      }
 
@@ -85,6 +86,7 @@ router.post('/image', function(req, res, next) {
 
      image.save(function(err, savedFile) {
        if (err) {
+         console.log("Broke here!");
          console.error(err);
          return res.status(500).json(err);
        }
