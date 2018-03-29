@@ -144,4 +144,5 @@ function hideForm(){
       document.getElementById("overlay").style.display = "none";
         $('.center').hide();
         $('#show').show();
+        formReset();
 }
