@@ -24,7 +24,6 @@
 
 			<div class="responsive-menu">
 				<ul>
-						<li><a href="/">Recent Images</a></li>
 						<li><button id="show" class="btn-link lightlinks" onclick="showForm()"><strong>Add Image</strong></button></li>
 				</ul>
 			 </div>
@@ -32,21 +31,7 @@
 	</header>
 
 	<section id="portfolio" class="portfolio breakfloat">
-		<div id="list-container">
-
-			<script id="list-template" type="text/x-handlebars-template">
-			  {{#each images}}
-			    <li class="imgCollect page-item">
-			      <a href="#" data-featherlight="{{file}}" class="lightbox_trigger">
-							<img src="{{file}}" height="100px"/></a>
-			      <p><strong>{{imageData.title}}</strong></p>
-			      <p>{{imageData.description}}</p>
-			      <button type="button" id="show" class="btn btn-xs btn-success" onclick="handleUpdateClick('{{_id}}')">Edit</button>
-			      <button type="button" class="btn btn-xs btn-danger" onclick="handleDeleteClick('{{_id}}')">Delete</button>
-			    </li>
-			  {{/each}}
-			</script>
-		</div>
+		<div id="list-container"></div>
 
 	<div id="overlay">
 		<div id="form-container" class="center hideform">
@@ -71,9 +56,22 @@
 	 	 </form>
 	  </div>
 </div>
-	<div id="footer" class="breakfloat">A very much work in progress from Leigh Stein</div>
+	<div id="footer" class="breakfloat">A very much work in progress. I'm nothing fancy yet, but one day I might be!</div>
 </section>
 </div>
+
+<script id="list-template" type="text/x-handlebars-template">
+	{{#each images}}
+		<li class="imgCollect page-item">
+			<a href="#" data-featherlight="{{file}}" class="lightbox_trigger">
+				<img src="{{file}}" height="100px"/></a>
+			<p><strong>{{imageData.title}}</strong></p>
+			<p>{{imageData.description}}</p>
+			<button type="button" id="show" class="btn btn-xs btn-success" onclick="handleUpdateClick('{{_id}}')">Edit</button>
+			<button type="button" class="btn btn-xs btn-danger" onclick="handleDeleteClick('{{_id}}')">Delete</button>
+		</li>
+	{{/each}}
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.min.js"></script>

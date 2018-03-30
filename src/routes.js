@@ -1,15 +1,13 @@
 // src/routes/index.js
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const path = require('path');
-
 
 
 // Get Most recent images
 router.get('/image',  function(req, res, next) {
   const Image = mongoose.model('Image');
 
-  Image.find({deleted: {$ne: true}}).sort({created_at: 'desc'}).exec( function(err, images) {
+  Image.find({deleted: {$ne: true}}).sort({created_at: 'desc'})/*.limit(6)*/.exec( function(err, images) {
     if (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -20,22 +18,14 @@ router.get('/image',  function(req, res, next) {
 });
 
 // Gallery page- Show All images
-router.get('/gallery',  function(req, res, next) {
-  /*const Image = mongoose.model('Image');
-
-  Image.find({deleted: {$ne: true}}).sort({created_at: 'desc'}).exec( function(err, images) {
-    if (err) {
-      console.log(err);
-      return res.status(500).json(err);
-    }
-
-    res.json(images);
-  });*/
+router.get('/gallery',  function(req, res) {
+  res.sendFile(path.join(__dirname+'/gallery.html'));
 });
 
-//get Single file
-/*router.get('/image/:imageID', function(req, res, next) {
+//get Single file - Not Working?
+router.get('/image/:imageID', function(req, res, next) {
   console.log("hello");
+  //const {fileId} = req.params;
   const Image = mongoose.model('Image');
   const imageID = req.params.imageId;
   const image = FILES.find(entry => entry.id === imageID);
@@ -44,7 +34,7 @@ router.get('/gallery',  function(req, res, next) {
   }
 
   res.json(image);
-});*/
+});
 
 /**
  * Create a new file

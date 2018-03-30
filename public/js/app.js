@@ -11,19 +11,6 @@ function getImages() {
     });
 }
 
-//get All Images
-function getAllImages() {
-  return $.ajax('/gallery')
-    .then(res => {
-      console.log("Results from getAllImages()", res);
-      return res;
-    })
-    .fail(err => {
-      console.error("Error in getAllImages()", err);
-      throw err;
-    });
-}
-
 function refreshFileList() {
   const template = $('#list-template').html();
   const compiledTemplate = Handlebars.compile(template);
@@ -56,6 +43,7 @@ function submitFileForm() {
     url = '/image/' + fileData._id;
 
   } else {
+    formReset();
     method = 'POST';
     url = '/image/';
   }
@@ -70,16 +58,15 @@ function submitFileForm() {
     .done(function(response) {
       console.log("We have posted the data");
       hideForm();
-      refreshFileList();
+
     })
     .fail(function(error) {
       console.log("Failed to post data.", error);
     })
 
   console.log("Your file data", fileData);
-  formReset();
+  refreshFileList();
 }
-
 
 // Update Click handler
 function handleUpdateClick(id) {
@@ -151,7 +138,6 @@ function showForm(){
         document.getElementById("overlay").style.display = "block";
           $('.center').show();
           $(this).hide();
-          formReset();
     }
 
 //Hide Form
