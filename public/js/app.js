@@ -11,6 +11,19 @@ function getImages() {
     });
 }
 
+//get All Images
+function getAllImages() {
+  return $.ajax('/gallery')
+    .then(res => {
+      console.log("Results from getAllImages()", res);
+      return res;
+    })
+    .fail(err => {
+      console.error("Error in getAllImages()", err);
+      throw err;
+    });
+}
+
 function refreshFileList() {
   const template = $('#list-template').html();
   const compiledTemplate = Handlebars.compile(template);
@@ -24,8 +37,6 @@ function refreshFileList() {
       const html = compiledTemplate(data);
       $('#list-container').html(html);
 })
-
-formReset();
 }
 
 

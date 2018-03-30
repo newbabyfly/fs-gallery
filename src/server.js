@@ -30,6 +30,7 @@ app.use(function(req, res, next){
   next(err);
 });
 
+
 //Error Handler
 app.use(function(err, req, res, next){
   res.status(err.status || 500);

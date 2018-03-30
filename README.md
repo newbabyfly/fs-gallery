@@ -15,7 +15,6 @@ Setup:
   - Run MongoDB
 
 To Do Now list:
-- Get main gallery/view all page working
 - Make everything work with a proper HB templating system
 - Form Validation
 - Better Error messages/pages

@@ -13,7 +13,7 @@
 
 	<header class="lightlinks lighttext">
 		<div class="intro">
-			<h1 id="homelink"><img src="img/half-circle.png" class="branding hidden-xs"> <a href="index.html">A Simple Gallery Script</a><br></h1>
+			<h1 id="homelink"><a href="/">A Simple Gallery Script</a><br></h1>
 			<div class="mobile-nav darken-bg">
 					<div class="menu-btn" id="menu-btn">
 						 <div></div>
@@ -25,7 +25,6 @@
 			<div class="responsive-menu">
 				<ul>
 						<li><a href="/">Recent Images</a></li>
-						<li><a href="/images">All Images</a></li>
 						<li><button id="show" class="btn-link lightlinks" onclick="showForm()"><strong>Add Image</strong></button></li>
 				</ul>
 			 </div>
@@ -33,8 +32,21 @@
 	</header>
 
 	<section id="portfolio" class="portfolio breakfloat">
-		<div id="list-container"></div>
+		<div id="list-container">
 
+			<script id="list-template" type="text/x-handlebars-template">
+			  {{#each images}}
+			    <li class="imgCollect page-item">
+			      <a href="#" data-featherlight="{{file}}" class="lightbox_trigger">
+							<img src="{{file}}" height="100px"/></a>
+			      <p><strong>{{imageData.title}}</strong></p>
+			      <p>{{imageData.description}}</p>
+			      <button type="button" id="show" class="btn btn-xs btn-success" onclick="handleUpdateClick('{{_id}}')">Edit</button>
+			      <button type="button" class="btn btn-xs btn-danger" onclick="handleDeleteClick('{{_id}}')">Delete</button>
+			    </li>
+			  {{/each}}
+			</script>
+		</div>
 
 	<div id="overlay">
 		<div id="form-container" class="center hideform">
@@ -42,9 +54,10 @@
 	 	 <form id="add-image-form">
 	 		 <input type="hidden" id="file-id" value="" />
 	 		 <div class="form-group">
-	 			 <label class="custom-file" for="file">Upload Image (Required)</label>
-	 			 <input class="form-control" id="file" type="text" placeholder="Image File Name" />
-			 </div>
+	 			 <label class="custom-file" for="file">Image URL (Required)</label>
+				 <input class="form-control" id="file" type="text" placeholder="Image File Name" />
+				 *Image uploader not operational yet. <a href="http://schism.org/fs-gallery/uploads/" taregt="_new">Copy an Image Url  From Here</a> for now!
+				</div>
 	 		 <div class="form-group">
 	 			 <label for="title">Title</label>
 	 			 <input class="form-control" id="title" type="text" placeholder="Title" />
@@ -62,33 +75,20 @@
 </section>
 </div>
 
-<script id="list-template" type="text/x-handlebars-template">
-
-
-  {{#each images}}
-    <div class="imgCollect">
-      <a href="#" data-featherlight="uploads/{{file}}" class="lightbox_trigger">
-				<img src="uploads/{{file}}" height="100px"/></a>
-      <p><strong>{{imageData.title}}</strong></p>
-      <p>{{imageData.description}}</p>
-      <button type="button" id="show" class="btn btn-xs btn-success" onclick="handleUpdateClick('{{_id}}')">Edit</button>
-      <button type="button" class="btn btn-xs btn-danger" onclick="handleDeleteClick('{{_id}}')">Delete</button>
-    </div>
-  {{/each}}
-
-</script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.min.js"></script>
 	<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.12/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/js/app.js"></script>
+
 </body>
 <script type="text/javascript">
+//reponsive nav menu
 	jQuery(function($){
 					 $( '.menu-btn' ).click(function(){
 					 $('.responsive-menu').toggleClass('expand')
 					 })
 				})
+
 </script>
 </body>
 
